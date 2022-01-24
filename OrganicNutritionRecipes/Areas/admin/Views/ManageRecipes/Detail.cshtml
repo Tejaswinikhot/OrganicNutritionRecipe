@@ -1,0 +1,91 @@
+﻿@page
+@{
+}
+@*<div>
+    <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#general" role="tab" aria-controls="home" aria-selected="true">General</a>
+        </li>*@
+        @*<li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="true">User Access</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#text" role="tab" aria-controls="text" aria-selected="true">Original Text</a>
+            </li>*@
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#replacements" role="tab" aria-controls="profile" aria-selected="false">Replacements</a>
+        </li>
+        @*<li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#activities" role="tab" aria-controls="contact" aria-selected="false">Activities</a>
+            </li>*@
+    @*</ul>
+    <div class="tab-content pt-4 pl-3">
+        <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="home-tab">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Filename)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Filename)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.UpdatedDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.UpdatedDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.UpdatedBy)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.UpdatedBy)
+                </dd>
+            </dl>
+        </div>*@
+        @*<div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
+                <div>
+                    <div class="input-group mb-3">
+                        <select class="custom-select form-control" id="userId" asp-items="ViewBag.Users" aria-label="Example select with button addon">
+                            <option selected>Select a user to grant access to...</option>
+                        </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="addUserToDocument()"><i class="fa fa-user-plus pr-2 pl-2"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <h5>Users allowed to review this result set</h5>
+
+                <ul id="tagList" class="list-group">
+                    @foreach (var item in Model.RecipeTags)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>@(item.Tag.Id)</span>
+                            <button class="btn btn-outline-danger" onclick="removeUserFromDocument('@item.Tag')"><i class="fas fa-user-minus"></i></button>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+        <div class="tab-pane fade" id="text" role="tabpanel" aria-labelledby="profile-tab">
+            <section>@Html.Raw(Model.Filename)</section>
+        </div>
+        @*<div class="tab-pane fade" id="activities" role="tabpanel" aria-labelledby="contact-tab">
+                @Html.DisplayFor(model => model.Activities)
+            </div>*@
+    </div>
+
+
+
+</div>

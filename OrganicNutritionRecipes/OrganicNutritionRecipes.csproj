@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-OrganicNutritionRecipes-09720D24-2EB0-4AE4-AFE2-9CDC46064EC1</UserSecretsId>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Microsoft.Extensions.DependencyInjection" />
+    <None Remove="Pomelo.EntityFrameworkCore.MySql" />
+    <None Remove="DataFiles\" />
+    <None Remove="Views\Search\" />
+    <None Remove="ViewModels\" />
+    <None Remove="Areas\admin\" />
+    <None Remove="Areas\admin\Controllers\" />
+    <None Remove="Areas\admin\Models\" />
+    <None Remove="Areas\admin\Views\" />
+    <None Remove="Areas\admin\Views\ManageRecipes\" />
+    <None Remove="DataFiles\Recipe\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.20" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.20" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DataFiles\" />
+    <Folder Include="Views\Search\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Areas\admin\" />
+    <Folder Include="Areas\admin\Controllers\" />
+    <Folder Include="Areas\admin\Models\" />
+    <Folder Include="Areas\admin\Views\" />
+    <Folder Include="Areas\admin\Views\ManageRecipes\" />
+    <Folder Include="DataFiles\Recipe\" />
+  </ItemGroup>
+</Project>

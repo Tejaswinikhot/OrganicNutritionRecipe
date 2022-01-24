@@ -1,0 +1,65 @@
+﻿@model IEnumerable<OrganicNutritionRecipes.Data.Recipe>
+
+@{
+    ViewData["Title"] = "View All Recipes";
+}
+<style>
+    .table th, .table td {
+        white-space: nowrap;
+    }
+</style>
+<h3 class="mb-3">
+    @ViewBag.Title
+    <a class="btn btn-success float-right"  asp-action="Add"><i class="fas fa-upload mr-1"></i>Upload New Recipe</a>
+</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeText)
+            </th>
+            <th class="d-none d-md-block">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedDate)
+            </th>
+            <th class="d-none d-md-block">
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a title="View Recipe" asp-action="Update" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.RecipeName)
+                    </a>
+                </td>
+                <td style="width: 100%; white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;">
+                    @Html.DisplayFor(modelItem => item.RecipeText)
+                </td>
+                <td class="d-none d-md-block">
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdatedDate)
+                </td>
+                <td class="d-none d-md-block">
+                    @Html.DisplayFor(modelItem => item.UpdatedBy)
+                </td>
+                <td style="white-space: nowrap;">
+                    <a title="View Recipe" asp-action="Update" asp-route-id="@item.Id" class="btn btn-secondary"><i class="fas fa-binoculars"></i></a>
+                    <a title="Remove Recipe" asp-action="Remove" asp-route-id="@item.Id" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

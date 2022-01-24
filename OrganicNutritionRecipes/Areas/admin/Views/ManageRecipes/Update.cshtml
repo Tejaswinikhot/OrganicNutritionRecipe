@@ -1,0 +1,149 @@
+﻿@model OrganicNutritionRecipes.Data.Recipe
+@{
+    ViewData["Title"] = "Viewing Recipe " + @Model.RecipeName;
+}
+<h3>
+    @(ViewBag.Title)
+    <a class="btn btn-danger float-right ml-1" asp-action="Remove" asp-route-id="@Model.Id">
+        <i class="fas fa-trash-alt fa-sm mr-1"></i>Remove Recipe
+    </a>
+</h3>
+<hr class="mb-5" />
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Recipe Summary</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Recipe Text</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Recipe Tags</button>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RecipeName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RecipeName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedBy)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UpdatedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UpdatedDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UpdatedBy)
+            </dd>
+        </dl>
+    </div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <section>@Html.Raw(Model.RecipeText)</section>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div>
+            @*<div class="input-group mb-3">
+                <select class="custom-select form-control" id="userId2" asp-items="ViewBag.AllTags" aria-label="Example select with button addon">
+                    <option selected>Select a Tag or create new ...</option>
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="addTagToRecipe()"><i class="fa fa-plus pr-2 pl-2"></i><i class="fa fa-tag pr-2 pl-2"></i></button>
+                </div>
+            </div>*@
+            <div class="input-group mb-3">
+                <input id="selectedTagId" class="form-control" list="Tags" placeholder="Select a existing Tag or create new..." />
+                <datalist id="Tags">
+                    @foreach (var item in ViewBag.AllTags)
+                    {
+                        <option value="@item.Text">@item.Value</option>
+                    }
+                </datalist>
+                @*<input class="form-control" id="AllTags1" list="datalistOptions" placeholder="Select a existing Tag or create new...">
+                <datalist id="datalistOptions" asp-items="ViewBag.AllTags">
+                    <option selected>Select a Tag or create new ...</option>
+                    <option value="San Francisco"></option>
+                    <option value="New York"></option>
+                    <option value="Seattle"></option>
+                    <option value="Los Angeles"></option>
+                    <option value="Chicago"></option>
+                </datalist>*@
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="addTagToRecipe()"><i class="fa fa-plus pr-2 pl-2"></i><i class="fa fa-tag pr-2 pl-2"></i></button>
+                </div>
+            </div>
+            <h5><span><i class="fa fa-tags pr-4 pl-4"></i></span> Tags for the Recipe @Html.Raw(Model.RecipeName) are :-</h5>
+
+            <ul id="tagList" class="list-group">
+                @foreach (var item in Model.RecipeTags)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center" data-tag-id="@item.TagId.ToString("D")">
+                        <span>@(item.Tag.Name)</span>
+                        <button class="btn btn-outline-danger" onclick="removeTagFromRecipe('@item.TagId.ToString("D")')"><i class="fas fa-minus-circle"></i></button>
+                    </li>
+
+                }
+            </ul>
+        </div>
+</div>
+
+
+@section scripts{
+    <script>
+        async function addTagToRecipe(){
+            const tagId = document.getElementById('selectedTagId').value;
+            const rawResponse = await fetch('/admin/recipes/@Model.Id/tags/add', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(tagId)
+            });
+            const content = await rawResponse.json();
+            if (content.success) {
+                $('#tagList').append(`<li class="list-group-item d-flex justify-content-between align-items-center" data-tag-id="${content.id}"><span>${tagId}</span><button class="btn btn-outline-danger" onclick="removeTagFromRecipe('${content.id}')"><i class="fas fa-minus-circle"></i></button></li>`);
+            }
+            else {
+                //TODO Error handling for existing tag show message to user
+            }
+        }
+
+        async function removeTagFromRecipe(tagId) {
+            const rawResponse = await fetch('/admin/recipes/@Model.Id/tags/remove', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(tagId)
+            });
+            const content = await rawResponse.json();
+            if(content.success) {
+                let element = $('li[data-tag-id=' + tagId + ']');
+                element.remove();
+            }
+            else {
+                //TODO Error handling for show message to user
+            }
+        }
+    </script>
+}
