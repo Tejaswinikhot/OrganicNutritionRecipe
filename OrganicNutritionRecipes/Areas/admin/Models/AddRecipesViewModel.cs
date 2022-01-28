@@ -12,6 +12,9 @@ namespace OrganicNutritionRecipes.Areas.admin.Models
         [Required]
         public IFormFile RecipeFile { get; set; }
 
+        [Required]
+        public string RecipeType { get; set; }
         //TODO add Tags
+
     }
 }

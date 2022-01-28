@@ -1,47 +1,56 @@
-﻿<div class="container body-content">
+﻿@*@model OrganicNutritionRecipes.Data.Recipe*@
+<div class="container body-content">
 
     <h1>@ViewBag.title</h1>
 
-    <form action="/search/results" method="post">
+    <form action="/search/searchbyrecipe" method="post">
         <h3>Search Recipes By:</h3>
 
         <p>
+            @*<span>
+                    <input class="searchBy" type="radio" name="searchType" id="Keyword" value="Keyword" disabled />
+                    <label for="Keyword">Keyword(E.g. Cheese Burgers) TODO Not Yet Implemented</label>
+                </span>
+                <br />*@
             <span>
-                <input type="radio" name="searchType" id="Keyword" value="Keyword" checked="" />
-                <label for="Keyword">Keyword(E.g. Cheese Burgers)</label>
+                <input class="searchBy" type="radio" name="searchType" id="Ingredient" value="Ingredient" checked="" />
+                <label for="Ingredient">Ingredient (E.g. Rice, Spinach, Egg, Chicken)</label>
             </span>
-            <br>
+            <br />
             <span>
-                <input type="radio" name="searchType" id="Ingredient" value="Ingredient" />
-                <label for="Ingredient">Ingredient (E.g. Rice, Spinach, Orange, Chicken)</label>
-            </span>
-            <br>
-            <span>
-                <input type="radio" name="searchType" id="Type" value="Type" />
-                <label for="Type">Type (E.g. Sandwiches, Salad, Bowls, Wraps)</label>
+                <input class="searchBy" type="radio" name="searchType" id="RecipeType" value="Recipe Type" />
+                <label for="Type">Type (E.g. Sandwiches, Salads, Soups)</label>
             </span>
         </p>
-
-        <p>
-            <label for="searchTerm">Search Terms:</label>
+        <p id="searchIngredientBox">
+            <label for="searchTerm">Search:</label>
             <input type="text" name="searchTerm" id="searchTerm" />
         </p>
-
+        <div id="searchRecipeTypeBox">
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="Sandwiches" name="SelectedRecipeTypes" aria-label="Checkbox for following text input">
+                </div>
+                <input type="text" class="form-control" readonly value="Sandwiches" aria-label="Text input with checkbox">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="Salads" name="SelectedRecipeTypes" aria-label="Checkbox for following text input">
+                </div>
+                <input type="text" class="form-control" readonly value="Salads" aria-label="Text input with checkbox">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="Soups" name="SelectedRecipeTypes" aria-label="Checkbox for following text input">
+                </div>
+                <input type="text" class="form-control" readonly value="Soups" aria-label="Text input with checkbox">
+            </div>
+        </div>
         <input type="submit" value="Search" />
     </form>
-
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width:280px">
-        <a href="#" data-bs-toggle="dropdown" aria-expanded="false"><strong>Selected Ingredients</strong></a>
-        <ul class="nav nav-pills flex-column mb-auto" aria-labelledby="Sidebar">
-            <li class="nav-item"><a class="nav-link link-dark" href="#">Rice </a></li>
-            <li><a class="nav-link link-dark" href="#">Wheat </a></li>
-            <li><a class="nav-link link-dark" href="#">Apple </a></li>
-            <li><a class="nav-link link-dark" href="#">Banana </a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><button class="btn btn-primary btn-toggle-nav rounded">Search Availble Recipes </button></li>
-        </ul>
-    </div>
-
+    <br />
+    <hr />
+    <br />
     <hr />
 
     @if (ViewBag.produces != null)
@@ -65,5 +74,110 @@
         </table>
     }
 
+    @if (ViewBag.seachedRecipes != null)
+    {
+        <h4 class="card-title">Recipes</h4>
+        int counter = 1;
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+            @foreach (var recipe in ViewBag.seachedRecipes)
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-heading@(counter)">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse@(counter)" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            Recipe - @recipe.RecipeName (@recipe.RecipeType)
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapse@(counter)" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading@(counter)">
+                        <div class="accordion-body">
+                            @*<h5 class="card-title">Recipe Type - @recipe.RecipeType</h5>*@
+                            <pre class="card-text">@recipe.RecipeText</pre>
+                            <ul id="tagList" class="list-group">
+                                @foreach (var item in recipe.RecipeTags)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" data-tag-id="@item.TagId.ToString("D")">
+                                        <span>@(item.Tag.Name)</span>
+                                        <button class="btn btn-outline-danger" onclick="viewNutritionFact('@item.Tag.Name')"><i class="fas fa-burn"></i></button>
+                                    </li>
 
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                counter++;
+            }
+        </div>
+    }
+    <hr />
 </div>
+    <!--Open Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section scripts{
+        <script type="text/javascript">$(".searchBy").click(function () {
+        if ($("input[name=searchType]:checked").val() == "Ingredient") {
+            $("#searchIngredientBox").attr("style", "display:block");
+            $("#searchRecipeTypeBox").attr("style", "display:none");
+        }
+        else if ($("input[name=searchType]:checked").val() == "Recipe Type") {
+            $("#searchIngredientBox").attr("style", "display:none");
+            $("#searchRecipeTypeBox").attr("style", "display:block");
+
+        }
+    });
+
+    $(document).ready(function () {
+        console.log("ready!");
+        $("#searchRecipeTypeBox").attr("style", "display:none");
+    });
+
+    $('#exampleModal2').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var modal = $(this);
+        var title = button.data('title'); alert(title);
+        modal.find('.modal-title').text(title)
+    });
+
+    async function viewNutritionFact(tagName) {
+        const rawResponse = await fetch('/search/viewNutritionFact', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(tagName)
+        });
+        const content = await rawResponse.json();
+        if (content.success) {
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), { focus: true, backdrop:true})
+            myModal.show();
+            document.getElementById('exampleModal').querySelector('.modal-title').innerHTML = tagName;
+            document.getElementById('exampleModal').querySelector('.modal-body').innerHTML = `<table>
+                        <tr><td>Protein - 10% </td></tr>
+                        <tr><td>Fats - 10% </td></tr>
+                        <tr><td>Sugar - 10% </td></tr>
+                        <tr><td>Saturated Fats - 20% </td></tr>
+                        <tr><td>Carbohydrates - 50% </td></tr>
+                        </table>`;
+        }
+        else {
+            //TODO Error handling for show message to user
+        }
+    }</script>
+    }

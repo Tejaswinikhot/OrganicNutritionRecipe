@@ -25,6 +25,14 @@
                 <input type="file" asp-for="RecipeFile" class="form-control" accept=".txt" />
                 <span asp-validation-for="RecipeFile" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="RecipeType" class="control-label"></label>
+                <radio asp-for="RecipeType" class="form-control" />
+                <input type="radio" asp-for="RecipeType" value="Sandwiches" id="Sandwiches" />Sandwiches<br />
+                <input type="radio" asp-for="RecipeType" value="Soups" id="Soups" />Soups<br />
+                <input type="radio" asp-for="RecipeType" value="Salads" id="Salads" />Salads<br />
+                <span asp-validation-for="RecipeType" class="text-danger"></span>
+            </div>
             <br />
             <div class="form-group">
                 <input type="submit" value="Upload Recipe" class="btn btn-primary" />

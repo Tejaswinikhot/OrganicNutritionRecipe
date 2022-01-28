@@ -24,6 +24,10 @@ namespace OrganicNutritionRecipes.Data
         [Required]
         public string RecipeText { get; set; }
 
+        [Display(Name = "Recipe Type")]
+        [Required]
+        public string RecipeType { get; set; }
+
         [Display(Name = "Created Date")]
         [DataType(DataType.Date)]
         [Required]
