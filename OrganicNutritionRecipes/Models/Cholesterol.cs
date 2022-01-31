@@ -3,11 +3,11 @@ namespace OrganicNutritionRecipes.Models
 {
     public class Cholesterol : Nutrient
     {
-        public Double CaffeinePerMeasure { get; set; }
+        public Double CholesterolPerMeasure { get; set; }
 
-        public Cholesterol(String description, String measure, Double caffeinePerMeasure) : base(measure, description)
+        public Cholesterol(String description, String measure, Double cholesterolPerMeasure) : base(measure, description, "Cholesterol")
         {
-            CaffeinePerMeasure = caffeinePerMeasure;
+            CholesterolPerMeasure = cholesterolPerMeasure;
         }
     }
 }

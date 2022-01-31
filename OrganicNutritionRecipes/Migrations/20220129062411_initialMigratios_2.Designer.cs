@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrganicNutritionRecipes.Data;
 
 namespace OrganicNutritionRecipes.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220129062411_initialMigratios_2")]
+    partial class initialMigratios_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,55 +321,10 @@ namespace OrganicNutritionRecipes.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CaffeineId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CarbohydrateId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CholesterolId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PolyUnsaturatedFatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProteinId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SaturatedFatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalDietaryFiberId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalSugarId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CaffeineId")
-                        .IsUnique();
-
-                    b.HasIndex("CarbohydrateId")
-                        .IsUnique();
-
-                    b.HasIndex("CholesterolId")
-                        .IsUnique();
-
-                    b.HasIndex("PolyUnsaturatedFatId")
-                        .IsUnique();
-
-                    b.HasIndex("ProteinId")
-                        .IsUnique();
-
-                    b.HasIndex("SaturatedFatId")
-                        .IsUnique();
-
-                    b.HasIndex("TotalDietaryFiberId")
-                        .IsUnique();
-
-                    b.HasIndex("TotalSugarId")
-                        .IsUnique();
 
                     b.ToTable("NutritionFacts");
                 });
@@ -411,6 +368,12 @@ namespace OrganicNutritionRecipes.Migrations
                     b.Property<double>("CaffeinePerMeasure")
                         .HasColumnType("double");
 
+                    b.Property<int>("NutritionFactsId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("NutritionFactsId")
+                        .IsUnique();
+
                     b.HasDiscriminator().HasValue("caffeine");
                 });
 
@@ -420,6 +383,13 @@ namespace OrganicNutritionRecipes.Migrations
 
                     b.Property<double>("CarbohydrateGPerMeasure")
                         .HasColumnType("double");
+
+                    b.Property<int>("NutritionFactsId")
+                        .HasColumnName("Carbohydrate_NutritionFactsId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("NutritionFactsId")
+                        .IsUnique();
 
                     b.HasDiscriminator().HasValue("carbohydrate");
                 });
@@ -431,6 +401,13 @@ namespace OrganicNutritionRecipes.Migrations
                     b.Property<double>("CholesterolPerMeasure")
                         .HasColumnType("double");
 
+                    b.Property<int>("NutritionFactsId")
+                        .HasColumnName("Cholesterol_NutritionFactsId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("NutritionFactsId")
+                        .IsUnique();
+
                     b.HasDiscriminator().HasValue("cholesterol");
                 });
 
@@ -438,8 +415,15 @@ namespace OrganicNutritionRecipes.Migrations
                 {
                     b.HasBaseType("OrganicNutritionRecipes.Models.Nutrient");
 
+                    b.Property<int>("NutritionFactsId")
+                        .HasColumnName("PolyUnsaturatedFat_NutritionFactsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PolyUnsaturatedFatPerMeasure")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasIndex("NutritionFactsId")
+                        .IsUnique();
 
                     b.HasDiscriminator().HasValue("polyunsaturatedfat");
                 });
@@ -448,8 +432,15 @@ namespace OrganicNutritionRecipes.Migrations
                 {
                     b.HasBaseType("OrganicNutritionRecipes.Models.Nutrient");
 
+                    b.Property<int>("NutritionFactsId")
+                        .HasColumnName("Protein_NutritionFactsId")
+                        .HasColumnType("int");
+
                     b.Property<double>("ProteinGPerMeasure")
                         .HasColumnType("double");
+
+                    b.HasIndex("NutritionFactsId")
+                        .IsUnique();
 
                     b.HasDiscriminator().HasValue("protein");
                 });
@@ -458,8 +449,15 @@ namespace OrganicNutritionRecipes.Migrations
                 {
                     b.HasBaseType("OrganicNutritionRecipes.Models.Nutrient");
 
+                    b.Property<int>("NutritionFactsId")
+                        .HasColumnName("SaturatedFat_NutritionFactsId")
+                        .HasColumnType("int");
+
                     b.Property<double>("SaturatedFatPerMeasure")
                         .HasColumnType("double");
+
+                    b.HasIndex("NutritionFactsId")
+                        .IsUnique();
 
                     b.HasDiscriminator().HasValue("saturatedfat");
                 });
@@ -468,8 +466,15 @@ namespace OrganicNutritionRecipes.Migrations
                 {
                     b.HasBaseType("OrganicNutritionRecipes.Models.Nutrient");
 
+                    b.Property<int>("NutritionFactsId")
+                        .HasColumnName("TotalDietaryFiber_NutritionFactsId")
+                        .HasColumnType("int");
+
                     b.Property<double>("TotalDietaryGPer100G")
                         .HasColumnType("double");
+
+                    b.HasIndex("NutritionFactsId")
+                        .IsUnique();
 
                     b.HasDiscriminator().HasValue("totaldietaryfiber");
                 });
@@ -478,8 +483,15 @@ namespace OrganicNutritionRecipes.Migrations
                 {
                     b.HasBaseType("OrganicNutritionRecipes.Models.Nutrient");
 
+                    b.Property<int>("NutritionFactsId")
+                        .HasColumnName("TotalSugar_NutritionFactsId")
+                        .HasColumnType("int");
+
                     b.Property<double>("SugarGPerMeasure")
                         .HasColumnType("double");
+
+                    b.HasIndex("NutritionFactsId")
+                        .IsUnique();
 
                     b.HasDiscriminator().HasValue("totalsugar");
                 });
@@ -550,57 +562,6 @@ namespace OrganicNutritionRecipes.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OrganicNutritionRecipes.Models.NutritionFacts", b =>
-                {
-                    b.HasOne("OrganicNutritionRecipes.Models.Caffeine", "Caffeine")
-                        .WithOne("NutritionFacts")
-                        .HasForeignKey("OrganicNutritionRecipes.Models.NutritionFacts", "CaffeineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OrganicNutritionRecipes.Models.Carbohydrate", "Carbohydrate")
-                        .WithOne("NutritionFacts")
-                        .HasForeignKey("OrganicNutritionRecipes.Models.NutritionFacts", "CarbohydrateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OrganicNutritionRecipes.Models.Cholesterol", "Cholesterol")
-                        .WithOne("NutritionFacts")
-                        .HasForeignKey("OrganicNutritionRecipes.Models.NutritionFacts", "CholesterolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OrganicNutritionRecipes.Models.PolyUnsaturatedFat", "PolyUnsaturatedFat")
-                        .WithOne("NutritionFacts")
-                        .HasForeignKey("OrganicNutritionRecipes.Models.NutritionFacts", "PolyUnsaturatedFatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OrganicNutritionRecipes.Models.Protein", "Protein")
-                        .WithOne("NutritionFacts")
-                        .HasForeignKey("OrganicNutritionRecipes.Models.NutritionFacts", "ProteinId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OrganicNutritionRecipes.Models.SaturatedFat", "SaturatedFat")
-                        .WithOne("NutritionFacts")
-                        .HasForeignKey("OrganicNutritionRecipes.Models.NutritionFacts", "SaturatedFatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OrganicNutritionRecipes.Models.TotalDietaryFiber", "TotalDietaryFiber")
-                        .WithOne("NutritionFacts")
-                        .HasForeignKey("OrganicNutritionRecipes.Models.NutritionFacts", "TotalDietaryFiberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OrganicNutritionRecipes.Models.TotalSugar", "TotalSugar")
-                        .WithOne("NutritionFacts")
-                        .HasForeignKey("OrganicNutritionRecipes.Models.NutritionFacts", "TotalSugarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("OrganicNutritionRecipes.Models.ProduceNutrients", b =>
                 {
                     b.HasOne("OrganicNutritionRecipes.Models.Nutrient", "Nutrient")
@@ -612,6 +573,78 @@ namespace OrganicNutritionRecipes.Migrations
                     b.HasOne("OrganicNutritionRecipes.Models.Produce", "produce")
                         .WithMany("ProduceNutrients")
                         .HasForeignKey("ProduceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OrganicNutritionRecipes.Models.Caffeine", b =>
+                {
+                    b.HasOne("OrganicNutritionRecipes.Models.NutritionFacts", "NutritionFacts")
+                        .WithOne("Caffeine")
+                        .HasForeignKey("OrganicNutritionRecipes.Models.Caffeine", "NutritionFactsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OrganicNutritionRecipes.Models.Carbohydrate", b =>
+                {
+                    b.HasOne("OrganicNutritionRecipes.Models.NutritionFacts", "NutritionFacts")
+                        .WithOne("Carbohydrate")
+                        .HasForeignKey("OrganicNutritionRecipes.Models.Carbohydrate", "NutritionFactsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OrganicNutritionRecipes.Models.Cholesterol", b =>
+                {
+                    b.HasOne("OrganicNutritionRecipes.Models.NutritionFacts", "NutritionFacts")
+                        .WithOne("Cholesterol")
+                        .HasForeignKey("OrganicNutritionRecipes.Models.Cholesterol", "NutritionFactsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OrganicNutritionRecipes.Models.PolyUnsaturatedFat", b =>
+                {
+                    b.HasOne("OrganicNutritionRecipes.Models.NutritionFacts", "NutritionFacts")
+                        .WithOne("PolyUnsaturatedFat")
+                        .HasForeignKey("OrganicNutritionRecipes.Models.PolyUnsaturatedFat", "NutritionFactsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OrganicNutritionRecipes.Models.Protein", b =>
+                {
+                    b.HasOne("OrganicNutritionRecipes.Models.NutritionFacts", "NutritionFacts")
+                        .WithOne("Protein")
+                        .HasForeignKey("OrganicNutritionRecipes.Models.Protein", "NutritionFactsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OrganicNutritionRecipes.Models.SaturatedFat", b =>
+                {
+                    b.HasOne("OrganicNutritionRecipes.Models.NutritionFacts", "NutritionFacts")
+                        .WithOne("SaturatedFat")
+                        .HasForeignKey("OrganicNutritionRecipes.Models.SaturatedFat", "NutritionFactsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OrganicNutritionRecipes.Models.TotalDietaryFiber", b =>
+                {
+                    b.HasOne("OrganicNutritionRecipes.Models.NutritionFacts", "NutritionFacts")
+                        .WithOne("TotalDietaryFiber")
+                        .HasForeignKey("OrganicNutritionRecipes.Models.TotalDietaryFiber", "NutritionFactsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OrganicNutritionRecipes.Models.TotalSugar", b =>
+                {
+                    b.HasOne("OrganicNutritionRecipes.Models.NutritionFacts", "NutritionFacts")
+                        .WithOne("TotalSugar")
+                        .HasForeignKey("OrganicNutritionRecipes.Models.TotalSugar", "NutritionFactsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

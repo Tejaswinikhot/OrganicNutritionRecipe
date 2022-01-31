@@ -58,6 +58,7 @@ namespace OrganicNutritionRecipes.Areas.admin.Controllers
                     var recipe = new Recipe();
                     recipe.Id = Guid.NewGuid();
                     recipe.RecipeName = addRecipesViewModel.Name;
+                    recipe.RecipeType = addRecipesViewModel.RecipeType;
                     recipe.RecipeText = Encoding.Default.GetString(textStream.ToArray());
                     recipe.CreatedBy = recipe.UpdatedBy = User.Identity.Name;
                     recipe.CreatedDate = recipe.UpdatedDate = DateTime.Now;

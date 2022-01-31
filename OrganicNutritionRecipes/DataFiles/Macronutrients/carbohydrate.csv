@@ -1,9 +1,4 @@
-"
-Abridged List Ordered by Nutrient Content in Household Measure
-Source: USDA National Nutrient Database for Standard Reference Legacy (2018)
-Nutrients: Carbohydrate, by difference(g)
-",,
-Description,Measure,"Carbohydrate, by difference(g)Per Measure"
+Description,Measure,CarbohydrateGPerMeasure
 "Syrups, table blends, pancake, with 2% maple, with added potassium",1.0 cups,219.24
 "Syrups, table blends, pancake",1.0 cups,193.02
 "Rice, white, long-grain, regular, raw, unenriched",1.0 cups,147.91

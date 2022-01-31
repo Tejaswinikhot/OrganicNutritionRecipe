@@ -4,12 +4,16 @@ namespace OrganicNutritionRecipes.Models
     public class Protein : Nutrient
     {
 
-        public Double ProteinGPerMeasure { get; set; }
+        public double ProteinGPerMeasure { get; set; }
 
-        public Protein(string measure, string description, double protiengrampermeasure) : base(measure, description)
+        public Protein(string measure, string description, double Protiengrampermeasure) : base(measure, description, "Protein")
         {
-            ProteinGPerMeasure = protiengrampermeasure;
+            ProteinGPerMeasure = Protiengrampermeasure;
         }
 
+        public Protein(string description, string measure) : base(measure, description, "Protein")
+        {
+
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace OrganicNutritionRecipes.Models
     {
         public Double CarbohydrateGPerMeasure { get; set; }
 
-        public Carbohydrate(String description, String measure, Double carbohydrateGPerMeasure) : base(measure, description)
+        public Carbohydrate(String description, String measure, Double carbohydrateGPerMeasure) : base(measure, description, "Carbohydrate")
         {
             CarbohydrateGPerMeasure = carbohydrateGPerMeasure;
         }

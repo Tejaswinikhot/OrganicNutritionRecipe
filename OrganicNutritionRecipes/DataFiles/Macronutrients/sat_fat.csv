@@ -1,9 +1,4 @@
-"
-Abridged List Ordered by Nutrient Content in Household Measure
-Source: USDA National Nutrient Database for Standard Reference Legacy (2018)
-Nutrients: Fatty acids, total saturated (g)
-",,
-Description,Measure,"Fatty acids, total saturated(g)Per Measure"
+Description,Measure,SaturatedFatPerMeasure
 "Desserts, mousse, chocolate, prepared-from-recipe",1.0 recipe yield,73.94
 "Beef, Australian, imported, grass-fed, seam fat, raw",4.0 oz,30.04
 "Cream, fluid, heavy whipping","1.0 cups, whipped",27.638

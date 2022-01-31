@@ -1,9 +1,4 @@
-"
-Abridged List Ordered by Nutrient Content in Household Measure
-Source: USDA National Nutrient Database for Standard Reference Legacy (2018)
-Nutrients: Caffeine(mg)
-",,
-Description,Measure,Caffeine(mg)Per Measure
+Description,Measure,CaffeinePerMeasure
 "Candies, dark chocolate coated coffee beans",1.0 serving 28 pieces,336
 "Beverages, THE COCA-COLA COMPANY, NOS energy drink, Original, grape, loaded cherry, charged citrus, fortified with vitamins B6 and B12",16.0 fl oz,163
 "Beverages, Energy drink, ROCKSTAR, sugar free",8.0 fl oz,79

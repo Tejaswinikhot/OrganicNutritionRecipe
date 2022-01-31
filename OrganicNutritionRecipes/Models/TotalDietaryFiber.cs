@@ -6,7 +6,7 @@ namespace OrganicNutritionRecipes.Models
 
         public Double TotalDietaryGPer100G { get; set; }
 
-        public TotalDietaryFiber(string measure, string description, double totalDietaryGPer100G) : base(measure, description)
+        public TotalDietaryFiber(string measure, string description, double totalDietaryGPer100G) : base(measure, description, "TotalDietaryFiber")
         {
             TotalDietaryGPer100G = totalDietaryGPer100G;
         }

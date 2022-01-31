@@ -3,14 +3,17 @@ namespace OrganicNutritionRecipes.Models
 {
     public class PolyUnsaturatedFat : Nutrient
     {
-        public Double CaffeinePerMeasure { get; set; }
 
-        public string FattyAcids { get; set; }
+        public string PolyUnsaturatedFatPerMeasure { get; set; }
 
-        public PolyUnsaturatedFat(String description, string measure, String fattyAcids, double polyunsaturatedPerMeasure) : base(measure, description)
+        public PolyUnsaturatedFat(string description, string measure, string PolyunsaturatedPerMeasure) : base(measure, description, "PolyUnsaturatedFatPerMeasure")
         {
-            FattyAcids = fattyAcids;
-            CaffeinePerMeasure = polyunsaturatedPerMeasure;
+            PolyUnsaturatedFatPerMeasure = PolyunsaturatedPerMeasure;
+        }
+
+        public PolyUnsaturatedFat(string description, string measure) : base(measure, description, "PolyUnsaturatedFatPerMeasure")
+        {
+
         }
     }
 }

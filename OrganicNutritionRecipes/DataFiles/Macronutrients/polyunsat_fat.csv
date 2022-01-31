@@ -1,9 +1,4 @@
-"
-Abridged List Ordered by Nutrient Content in Household Measure
-Source: USDA National Nutrient Database for Standard Reference Legacy (2018)
-Nutrients: Fatty acids, total polyunsaturated (g)
-",,
-Description,Measure,"Fatty acids, total polyunsaturated(g)Per Measure"
+Description,Measure,PolyUnsaturatedFatPerMeasure
 "Nuts, butternuts, dried",1.0 cups,51.289
 "Seeds, sunflower seed kernels, toasted, without salt",1.0 cups,50.259
 "Seeds, sunflower seed kernels, oil roasted, without salt",1.0 cups,46.297

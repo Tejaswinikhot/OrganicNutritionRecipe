@@ -1,9 +1,4 @@
-"
-Abridged List Ordered by Nutrient Content in Household Measure
-Source: USDA National Nutrient Database for Standard Reference Legacy (2018)
-Nutrients: Sugars, total (g)
-",,
-Description,Measure,"Sugars, total(g)Per Measure"
+Description,Measure,SugarGPerMeasure
 "Desserts, mousse, chocolate, prepared-from-recipe",1.0 recipe yield,119.66
 "Whey, sweet, dried",1.0 cups,107.97
 "Currants, zante, dried",1.0 cups,89.68

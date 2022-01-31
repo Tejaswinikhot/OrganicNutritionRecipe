@@ -1,9 +1,4 @@
-"
-Abridged List Ordered by Nutrient Content in Household Measure
-Source: USDA National Nutrient Database for Standard Reference Legacy (2018)
-Nutrients: Total Dietary Fiber (g)
-",
-Description,"Fiber, total dietary(g)Per 100 g"
+Description,TotalDietaryGPer100G
 "Corn bran, crude",79
 "Gums, seed gums (includes locust bean, guar)",77.3
 "Fungi, Cloud ears, dried",70.1

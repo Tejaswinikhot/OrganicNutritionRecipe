@@ -5,7 +5,7 @@ namespace OrganicNutritionRecipes.Models
     {
         public Double CaffeinePerMeasure { get; set; }
 
-        public Caffeine(String description, string measure, double caffeinePerMeasure) :base(measure, description)
+        public Caffeine(String description, string measure, double caffeinePerMeasure) :base(measure, description, "Caffeine")
         {
             CaffeinePerMeasure = caffeinePerMeasure;
         }
