@@ -183,6 +183,38 @@
         modal.find('.modal-title').text(title)
     });
 
+    async function viewNutritionFact(tagName) {
+        const rawResponse = await fetch('/search/viewHealthFact', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(tagName)
+        });
+        const content = await rawResponse.json();
+
+        if (content.success) {
+            if (content.healthyFact) {
+                var fact = content.healthyFact;
+                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), { focus: true, backdrop: true })
+                myModal.show();
+                document.getElementById('exampleModal').querySelector('.modal-title').innerHTML = "Nutrition Fact for "+tagName;
+                document.getElementById('exampleModal').querySelector('.modal-body').innerHTML = `<table>
+                        <tr><th> Name </th><th> Value </th></tr>
+                        <tr><td> Cholesterol </td><td>${fact.cholesterol}</td></tr>
+                        <tr><td> Carbohydrate </td><td>${fact.carbohydrate}</td></tr>
+                        <tr><td> Protein </td><td>${fact.protein}</td></tr>
+                        <tr><td> Total Sugar </td><td>${fact.totalSugar}</td></tr>
+                        <tr><td> SaturatedFat </td><td>${fact.saturatedFat}</td></tr>
+                        </table> `;
+            }
+            
+        }
+        else {
+            //TODO Error handling for show message to user
+        }
+    }
 
             const fetchTimeout = (url, ms, { signal, ...options } = {}) => {
     const controller = new AbortController();
@@ -226,7 +258,7 @@
         }).catch(error => console.log('error', error));
             };
 
-            async function viewNutritionFact(tagName) {
+            async function viewNutritionFacts(tagName) {
                 console.log("Suhas");
                 console.log(test());
             }
@@ -280,7 +312,7 @@
                 var OAUTH_SIGNATURE_BASE64_ENCODED = encodeURIComponent(OAUTH_SIGNATURE_BASE64);
                 var OAUTH_REQUEST_URL = `${REQUEST_URL}?${NORMALISED_PARAMETERS}&oauth_signature=${OAUTH_SIGNATURE_BASE64_ENCODED}`;
 
-                
+
 
                  $.ajax({
                      headers:{ "Access-Control-Allow-Origin":"*" ,"Access-Control-Request-Headers": "x-requested-with", "accept":"application/json"},
@@ -291,10 +323,10 @@
             async: false,
             //contentType: "application/json; charset=utf-8",
             success: function (msg) {
-                console.log(msg);                
+                console.log(msg);
             }
  });
-                
+
 
                 //const promise = await fetch(OAUTH_REQUEST_URL, requestOptions).then((resolve, reject) => setTimeout(resolve, 10000, 'foo')).then((response) => response.json())
 
@@ -337,7 +369,7 @@ fetch(OAUTH_REQUEST_URL, requestOptions).then(
                         alert(responseData);
                                 return responseData;
                     });
-                    
+
 
                 @*return fetch(OAUTH_REQUEST_URL, requestOptions)
                     .then((response) => response.json())
@@ -350,27 +382,8 @@ fetch(OAUTH_REQUEST_URL, requestOptions).then(
                 console.log(dd);*@
             }
 
-    async function viewNutritionFact1(tagName) {
-        @*const rawResponse = await fetch('/search/viewNutritionFact', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(tagName)
-        });*@
 
-        @*var myheaders = new Headers();
-        myheaders.append("Accept", "application/json");
-        myheaders.append('Access-Control-Allow-Origin', 'https://localhost:5001');
-        myheaders.append('Access-Control-Allow-Credentials', 'true');
-        var requestOptions = {
-            method: 'GET',
-            headers: myheaders
-        };
-        const rawResponse = await
-            fetch("https://platform.fatsecret.com/rest/server.api?search_expression=Orange&method=foods.search&format=json&oauth_consumer_key=6314f908f9cf480facc9c250916ff476&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1643499654&oauth_nonce=vxVxqAq80ex&oauth_version=1.0&oauth_signature=iSnMfLD7bYEFKnFrouBPWxV1ISQ%3D", requestOptions);*@
-
+        async function viewNutritionFacts1(tagName) {
     @*var myHeaders = new Headers();
         myHeaders.append("Cookie", "AWSALB=CQr8m1fYZOn3qEn/3GObVUaKnl8kdFfpBKYdnpJEYvjQHJ7V9yx3l8D8G6VyfvrOGLxLnQGAYzaxs9kkstXlWgXT/j0PKbX9vQWXWV29q7tFcHBn3snxJenXiClX; AWSALBCORS=CQr8m1fYZOn3qEn/3GObVUaKnl8kdFfpBKYdnpJEYvjQHJ7V9yx3l8D8G6VyfvrOGLxLnQGAYzaxs9kkstXlWgXT/j0PKbX9vQWXWV29q7tFcHBn3snxJenXiClX");
         myHeaders.append("Access-Control-Allow-Origin", true);

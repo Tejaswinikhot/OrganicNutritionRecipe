@@ -15,6 +15,8 @@ namespace OrganicNutritionRecipes.Data
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<HealthyFact> HealthyFacts { get; set; }
+
         public DbSet<RecipeTag> RecipeTags { get; set; }
 
         public DbSet<NutritionFacts> NutritionFacts { get; set; }
@@ -63,6 +65,10 @@ namespace OrganicNutritionRecipes.Data
                 .HasValue<TotalDietaryFiber>("totaldietaryfiber")
                 .HasValue<TotalSugar>("totalsugar");
 
+            modelBuilder.Entity<Tag>()
+               .HasOne(d => d.HealthyFact)
+               .WithOne(i => i.Tag)
+               .HasForeignKey<HealthyFact>(b => b.TagId);
 
             modelBuilder.Entity<Nutrient>()
                 .Property(e => e.NutrientType)

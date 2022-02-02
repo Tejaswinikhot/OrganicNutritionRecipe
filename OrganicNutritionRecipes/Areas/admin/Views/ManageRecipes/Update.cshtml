@@ -20,6 +20,9 @@
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Recipe Tags</button>
     </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="healthyfact-tab" data-bs-toggle="tab" data-bs-target="#healthyfact" type="button" role="tab" aria-controls="healthyfact" aria-selected="false">Healthy Fact</button>
+    </li>
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -62,13 +65,13 @@
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div>
             @*<div class="input-group mb-3">
-                <select class="custom-select form-control" id="userId2" asp-items="ViewBag.AllTags" aria-label="Example select with button addon">
-                    <option selected>Select a Tag or create new ...</option>
-                </select>
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" onclick="addTagToRecipe()"><i class="fa fa-plus pr-2 pl-2"></i><i class="fa fa-tag pr-2 pl-2"></i></button>
-                </div>
-            </div>*@
+                    <select class="custom-select form-control" id="userId2" asp-items="ViewBag.AllTags" aria-label="Example select with button addon">
+                        <option selected>Select a Tag or create new ...</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="addTagToRecipe()"><i class="fa fa-plus pr-2 pl-2"></i><i class="fa fa-tag pr-2 pl-2"></i></button>
+                    </div>
+                </div>*@
             <div class="input-group mb-3">
                 <input id="selectedTagId" class="form-control" list="Tags" placeholder="Select a existing Tag or create new..." />
                 <datalist id="Tags">
@@ -78,14 +81,14 @@
                     }
                 </datalist>
                 @*<input class="form-control" id="AllTags1" list="datalistOptions" placeholder="Select a existing Tag or create new...">
-                <datalist id="datalistOptions" asp-items="ViewBag.AllTags">
-                    <option selected>Select a Tag or create new ...</option>
-                    <option value="San Francisco"></option>
-                    <option value="New York"></option>
-                    <option value="Seattle"></option>
-                    <option value="Los Angeles"></option>
-                    <option value="Chicago"></option>
-                </datalist>*@
+                    <datalist id="datalistOptions" asp-items="ViewBag.AllTags">
+                        <option selected>Select a Tag or create new ...</option>
+                        <option value="San Francisco"></option>
+                        <option value="New York"></option>
+                        <option value="Seattle"></option>
+                        <option value="Los Angeles"></option>
+                        <option value="Chicago"></option>
+                    </datalist>*@
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" onclick="addTagToRecipe()"><i class="fa fa-plus pr-2 pl-2"></i><i class="fa fa-tag pr-2 pl-2"></i></button>
                 </div>
@@ -103,11 +106,79 @@
                 }
             </ul>
         </div>
-</div>
+    </div>
+    <div class="tab-pane fade" id="healthyfact" role="tabpanel" aria-labelledby="healthyfact-tab">
+        <form action="/admin/healthyfact" method="post" id="healthyFactForm" name="healthyFactForm">
+            <h3>Add Healthy Fact:</h3>
+            <p>
+                <div class="input-group mb-3 w-25">
+                    <select class="custom-select form-select form-control" style="width:max-content" id="alltags" name="alltags" asp-items="ViewBag.AllTags" aria-label="Example select with button addon">
+                        <option selected>Select a Tag...</option>
+                    </select>
+                </div>
+                <div class="mb-3 w-25">
+                    <label for="Cholesterol">Enter Cholesterol Nutrition Value : </label>
+                    <input class="form-control" type="text" name="Cholesterol" id="Cholesterol" />
+                </div>
+                <div class="mb-3 w-25">
+                    <label for="Carbohydrate">Enter Carbohydrates Nutrition Value : </label>
+                    <input class="form-control" type="text" name="Carbohydrate" id="Carbohydrate" />
+                </div>
+                <div class="mb-3 w-25">
+                    <label for="Protein">Enter Protein Nutrition Value : </label>
+                    <input class="form-control" type="text" name="Protein" id="Protein" />
+                </div>
+                <div class="mb-3 w-25">
+                    <label for="TotalSugar">Enter Total Sugar Value : </label>
+                    <input class="form-control" type="text" name="TotalSugar" id="TotalSuger" />
+                </div>
+                <div class="mb-3 w-25">
+                    <label for="SaturatedFat">Enter Saturated Fat Nutrition Value : </label>
+                    <input class="form-control" type="text" name="SaturatedFat" id="SaturatedFat" />
+                </div>
 
+            </p>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" onclick="addHealthyFact()"><i class="fa fa-burn pr-2 pl-2">HealthyFact</i></button>
+            </div>
+        </form>
+
+    </div>
+</div>
 
 @section scripts{
     <script>
+
+        async function addHealthyFact() {
+            var healthyForm = $('#healthyFactForm');
+            var unindexed_array = healthyForm.serializeArray();
+            var data = {};
+
+            $.map(unindexed_array, function (n, i) {
+                data[n['name']] = n['value'];
+            });
+
+            const tagId = document.getElementById('alltags').value;
+            var conceptName = $('.alltags').find(":selected").text();
+
+            var url = '/admin/tags/' + tagId+'/healthyfact/add';
+            const rawResponse = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const content = await rawResponse.json();
+            if (content.success) {
+                $('#tagList').append(`<li class="list-group-item d-flex justify-content-between align-items-center" data-tag-id="${content.id}"><span>${tagId}</span><button class="btn btn-outline-danger" onclick="removeTagFromRecipe('${content.id}')"><i class="fas fa-minus-circle"></i></button></li>`);
+            }
+            else {
+                //TODO Error handling for existing tag show message to user
+            }
+        }
+
         async function addTagToRecipe(){
             const tagId = document.getElementById('selectedTagId').value;
             const rawResponse = await fetch('/admin/recipes/@Model.Id/tags/add', {

@@ -58,30 +58,17 @@ namespace OrganicNutritionRecipes.Controllers
             return View("Index");
         }
 
-        [HttpPost("search/viewNutritionFact/")]
+        [HttpPost("search/viewHealthFact/")]
         public IActionResult ViewNutritionFact([FromBody] string TagName)
         {
             if (TagName == null)
                 return NotFound();
 
-            //List<Nutrient> nutritionFacts = context.Nutrients
-                        //.Where(js => js.Description.Contains(TagName)).ToList();
-            //|| js.Cholesterol.Description.Contains(TagName)
-            //|| js.Carbohydrate.Description.Contains(TagName)
-            //|| js.Protein.Description.Contains(TagName)
-            //|| js.SaturatedFat.Description.Contains(TagName)
-            //|| js.TotalDietaryFiber.Description.Contains(TagName)
-            //|| js.TotalSugar.Description.Contains(TagName)
-            //)
 
-            //Nutrient n = new Carbohydrate("Mayonnaise", "2", 3.3);
-            //context.Add(n);
-            //context.SaveChangesAsync();
+            var healthyFacts = context.HealthyFacts.Where(t => t.Tag.Name == TagName).ToList();
+            //HealthyFact healthFact = healthyFacts.Where(js => js.Tag.Name == TagName).FirstOrDefault();
 
-            List<Nutrient> nutritionFacts = context.Nutrients
-                   .Where(js => js.Description.Contains(TagName)).ToList();
-
-            return Json(new { success = true, nutritionFacts });
+            return Json(new { success = true, HealthyFact = healthyFacts.FirstOrDefault() });
         }
 
         public IActionResult SearchProduce(string searchType, string searchTerm)

@@ -189,5 +189,48 @@ namespace OrganicNutritionRecipes.Areas.admin.Controllers
             await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost("admin/tags/{id}/healthyfact/add")]
+        public async Task<IActionResult> AddHealthyFactForTag(Guid? id, [FromBody] AddHealthyFactViewModel addHealthyFactViewModel)
+        {
+            if (id == null)
+                return NotFound();
+
+            var tag = await dbContext.Tags.Include(d => d.HealthyFact).FirstOrDefaultAsync(d => d.Id == id);
+            if (tag == null)
+                return NotFound();
+
+            HealthyFact healthyFacts;
+            //Check if HealthyFact is already added to Tag
+            if (tag.HealthyFact != null)
+            {
+                healthyFacts = tag.HealthyFact;
+                healthyFacts.Carbohydrate = addHealthyFactViewModel.Carbohydrate;
+                healthyFacts.Cholesterol = addHealthyFactViewModel.Cholesterol;
+                healthyFacts.SaturatedFat = addHealthyFactViewModel.SaturatedFat;
+                healthyFacts.Protein = addHealthyFactViewModel.Protein;
+                healthyFacts.TotalSugar = addHealthyFactViewModel.TotalSugar;
+                dbContext.HealthyFacts.Update(healthyFacts);
+                await dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                healthyFacts = new HealthyFact
+                {
+                    Carbohydrate = addHealthyFactViewModel.Carbohydrate,
+                    Cholesterol = addHealthyFactViewModel.Cholesterol,
+                    SaturatedFat = addHealthyFactViewModel.SaturatedFat,
+                    Protein = addHealthyFactViewModel.Protein,
+                    TotalSugar = addHealthyFactViewModel.TotalSugar,
+                    Tag = tag
+                };
+                dbContext.HealthyFacts.Add(healthyFacts);
+                await dbContext.SaveChangesAsync();
+            }
+            
+
+            return Json(new { success = true, tagName = tag.Name, id = tag.Id.ToString("D"), HealthyFactId = healthyFacts.Id, message = "Added HealthyFact " });
+        }
+
     }
 }

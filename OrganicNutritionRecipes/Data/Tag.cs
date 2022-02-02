@@ -19,6 +19,7 @@ namespace OrganicNutritionRecipes.Data
         {
             Name = name;
         }
+        public HealthyFact HealthyFact { get; set; }
 
         public Tag ()
         {
