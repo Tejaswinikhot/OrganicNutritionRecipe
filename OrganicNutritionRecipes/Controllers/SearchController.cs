@@ -46,10 +46,14 @@ namespace OrganicNutritionRecipes.Controllers
                 {
                     foreach (var ingred in searchIngredients)
                     {
-                        recipes.AddRange(context.Recipes.Where(u => u.RecipeTags.Any(t =>t.Tag.Name == ingred))
+                        if (!String.IsNullOrEmpty(ingred))
+                        {
+                            recipes.AddRange(context.Recipes.Where(u => u.RecipeTags.Any(t => t.Tag.Name == ingred))
                        .Include(j => j.RecipeTags)
                        .ThenInclude(u => u.Tag)
                        .ToList());
+                        }
+                        
                     }
                     Console.Write("");
                 }
